@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Application 2020</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    <link href="/css/site.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+     <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+        <script type="module" src="/app.js" defer></script>
+        <script src="/firebase.js"></script>
+
+</head>
+
+<body>  
+    <div class="container" id="container">
+        <section class="notifications" style="display: none;">
+            <p class="notification-message" id="errorBox"></p>
+        </section>
+        <section class="notifications" id="success" style="display: none;background-color:rgba(1, 131, 29, 0.541);">
+            <p class="notification-message" id="successBox"></p>
+        </section> 
+
+        <div id="root"></div>
+
+        <footer class="page-footer font-small">
+            <div class="footer-copyright text-center py-3">© 2020
+                <a href="https://softuni.bg/trainings/2840/js-applications-june-2020/internal" class="text-dark">JS Applications</a>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
