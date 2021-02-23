@@ -1,4 +1,5 @@
 const session = require("../mongooseSchema/users");
+const refreshToken = require("../mongooseSchema/refreshToken");
 const errHandler = require("../helper/errorHandler");
 const bcrypt = require("bcrypt");
 const {SALT} = require("../config/config");
@@ -18,13 +19,13 @@ async function addUser(data) {
     }
     
     let hashPassword = await bcrypt.hash(password, SALT);
-        
-        const sessionUser = new session({email,username,hashPassword,roles: roles.User});
-
-        return  sessionUser.save()
+   
+    const sessionUser = new session({email,username,hashPassword,roles: roles.User});
+    
+    return  sessionUser.save()
 };
 
-async function logUser(data,ipAddress) {
+async function logUser(data) {
     
     let {email} = data;
 
@@ -37,11 +38,10 @@ async function logUser(data,ipAddress) {
     if(error != null) {
         return error
     }
-   
-    let addToken =  token.tokenMaker(emailUser._id,emailUser.roles);
     
-    token.genRefreshToken(emailUser._id,ipAddress);
-    
+
+    let addToken =  token.tokenMaker({id: emailUser._id,role: emailUser.roles});
+      
     emailUser.token = addToken;
 
    

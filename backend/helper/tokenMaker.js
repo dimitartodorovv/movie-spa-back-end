@@ -5,7 +5,7 @@ const {nanoid} = require("nanoid");
 
  function tokenMaker(data) {
 
-    let payload = {data};
+    let payload = data;
     let optians = {expiresIn: "1h"};
     
    const token = jwt.sign(payload,SECRET_KEY,optians);
@@ -19,39 +19,22 @@ const {nanoid} = require("nanoid");
 
 async function genRefreshToken(userId,ipAddress) {
     const tokenID = nanoid()
-        const refToken = new refToken({
+        const refreshToken = new refToken({
             user: userId, 
             token: tokenID,
             expires: new Date(Date.now() + 7*24*60*60*1000),
             createdByIp: ipAddress
         })
 
-       await refToken.save()
+       await refreshToken.save()
 };
 
- function genNewToken(user,ipAddress) {
-    const tokenID = nanoid()
-        const refToken = new refToken({
-            // need add user id
-            user: user, 
-            token: tokenID,
-            expires: new Date(Date.now() + 7*24*60*60*1000),
-            createdByIp: ipAddress
-        })
 
-        return refToken;
-}
-
-async function refreshToken(token, ipAddress) {
+async function refreshTokenUser(id) {
     
-    const refreshToken =  await refToken.findOne({token}).populate('user');;
-    
-    const {user} = refreshToken;
+    const refreshToken =  await refToken.findOne({_id: id});
 
-    const newRefToken = genNewToken(user,ipAddress);
-
-    refreshToken.revoked = Date.now();
-    refreshToken.revokedByIp = ipAddress;
+    refreshToken.expires = new Date(Date.now() + 7*24*60*60*1000);
 
      await refreshToken.save()
 }
@@ -80,4 +63,5 @@ async function refreshToken(token, ipAddress) {
 module.exports = {
     tokenMaker,
     genRefreshToken,
+    refreshTokenUser
 }

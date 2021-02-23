@@ -7,13 +7,13 @@ export const userData =  () => {
         let data = JSON.parse(localStorage.getItem('nickName'))
     
         return {
-            email: data.email,
+            username: data.username,
               
         }
     } catch (error) {
         
         return {
-            email: ''
+            username: ''
         }
     }
 
